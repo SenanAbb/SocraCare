@@ -13,7 +13,7 @@
           class="row align-items-center justify-content-center flex-lg-row"
         >
           <img
-            src="/images/<%= hospital.image ? '/hospital/' + hospital.image : '/assets/null_image.png' %>"
+            src="/images/<%= hospital.image ? 'hospital/' + hospital.image : 'assets/null_image.png' %>"
             alt="hospital"
             class="col-12 col-md-6"
           />
@@ -24,8 +24,19 @@
             <p><%= hospital.city %></p>
             <p><%= hospital.email %></p>
             <p><%= hospital.phone_number %></p>
-            <a href="" class="btn btn-primary">Editar</a>
-            <a href="/hospital/delete/<%= hospital.id %>" class="btn btn-danger"
+            <a
+              href="/doctor/new/<%= hospital.hospital_id %>"
+              class="btn btn-primary"
+              >Añadir médico</a
+            >
+            <a
+              href="/hospital/edit/<%= hospital.hospital_id %>"
+              class="btn btn-primary"
+              >Editar</a
+            >
+            <a
+              href="/hospital/delete/<%= hospital.hospital_id %>"
+              class="btn btn-danger"
               >Eliminar</a
             >
           </div>
@@ -48,7 +59,7 @@
                   </h6>
                 </div>
                 <img
-                  src="/images/<%= doctor.image ? '/doctor/' + doctor.image : '/assets/null_image.png' %>"
+                  src="/images/<%= doctor.image ? 'doctor/' + doctor.image : 'assets/null_image.png' %>"
                   class="card-img-top"
                   alt="..."
                 />
@@ -58,12 +69,12 @@
                 </div>
                 <div class="card-body">
                   <a
-                    href="/doctor/show/<%= doctor.id %>"
+                    href="/doctor/edit/<%= doctor.doctor_id %>?h=<%= hospital.hospital_id %>"
                     class="btn btn-primary"
                     >Editar</a
                   >
                   <a
-                    href="/doctor/delete/<%= doctor.id %>"
+                    href="/doctor/delete/<%= doctor.doctor_id %>?h=<%= hospital.hospital_id %>"
                     class="btn btn-danger"
                     >Eliminar</a
                   >

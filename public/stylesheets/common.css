@@ -30,3 +30,13 @@ footer {
   height: 250px;
   object-fit: cover;
 }
+
+.form-register {
+  width: 100%;
+  max-width: 600px;
+  margin: auto;
+  border: 1px solid var(--primary-color-light);
+  box-shadow: 0 0 40px 0 var(--primary-color);
+  border-radius: 20px;
+  padding: 20px;
+}

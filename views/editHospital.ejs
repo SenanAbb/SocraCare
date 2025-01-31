@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include modules/head.ejs %>
+    <link rel="stylesheet" href="/stylesheets/hospital.css" />
+  </head>
+  <body>
+    <%- include modules/navbar.ejs %>
+
+    <main class="hospital-main">
+      <div class="container-xxl">
+        <form
+          action="/hospital/edit/<%= hospital.hospital_id %>"
+          method="post"
+          class="form-register my-5"
+          enctype="multipart/form-data"
+        >
+          <fieldset>
+            <legend>Edita tu hospital</legend>
+            <p style="color: red">
+              <%= typeof message != 'undefined' ? message : null %>
+            </p>
+            <div>
+              <label for="name" class="form-label">Nombre del hospital *</label>
+              <input
+                type="text"
+                class="form-control"
+                id="name"
+                name="name"
+                value="<%= hospital.name %>"
+                placeholder="Introduce el nombre del hospital"
+              />
+            </div>
+            <div>
+              <label for="email" class="form-label mt-4">Email *</label>
+              <input
+                type="email"
+                class="form-control"
+                id="email"
+                name="email"
+                value="<%= hospital.email %>"
+                placeholder="Introduce tu email"
+              />
+            </div>
+            <div>
+              <label for="password" class="form-label mt-4">Contraseña *</label>
+              <input
+                type="password"
+                class="form-control"
+                id="password"
+                name="password"
+                placeholder="Contraseña"
+                autocomplete="off"
+              />
+            </div>
+            <div>
+              <label for="repPassword" class="form-label mt-4"
+                >Repite la contraseña *</label
+              >
+              <input
+                type="password"
+                class="form-control"
+                id="repPassword"
+                name="repPassword"
+                placeholder="Repita la contraseña"
+                autocomplete="off"
+              />
+            </div>
+            <div>
+              <label for="address" class="form-label mt-4">Dirección *</label>
+              <input
+                type="text"
+                class="form-control"
+                id="address"
+                name="address"
+                value="<%= hospital.address %>"
+                placeholder="Introduce tu dirección"
+                autocomplete="off"
+              />
+            </div>
+            <div>
+              <label for="city" class="form-label mt-4">Ciudad *</label>
+              <input
+                type="text"
+                class="form-control"
+                id="city"
+                name="city"
+                value="<%= hospital.city %>"
+                placeholder="Introduce tu dirección"
+                autocomplete="off"
+              />
+            </div>
+            <div>
+              <label for="phone_number" class="form-label mt-4"
+                >Teléfono *</label
+              >
+              <input
+                type="number"
+                class="form-control"
+                id="phone_number"
+                name="phone_number"
+                value="<%= hospital.phone_number %>"
+                placeholder="Introduce tu dirección"
+                autocomplete="off"
+              />
+            </div>
+            <div>
+              <label for="description" class="form-label mt-4"
+                >Descripción</label
+              >
+              <textarea
+                class="form-control"
+                id="description"
+                name="description"
+                rows="3"
+              >
+<%= hospital.description %></textarea
+              >
+            </div>
+            <div>
+              <label for="image" class="form-label mt-4"
+                >Sube la foto del hospital</label
+              >
+              <input class="form-control" type="file" id="image" name="img" />
+            </div>
+            <button type="submit" class="btn btn-primary mt-3">Guardar</button>
+          </fieldset>
+        </form>
+      </div>
+    </main>
+
+    <%- include modules/footer.ejs %>
+  </body>
+</html>

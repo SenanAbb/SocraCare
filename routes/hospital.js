@@ -13,6 +13,12 @@ router.post('/create', upload('hospital'), hospitalController.create);
 // Renderiza la página de un hospital concreto
 router.get('/show/:id', hospitalController.showOne);
 
+// Renderiza la página de edición de un hospital concreto
+router.get('/edit/:id', hospitalController.editForm);
+
+// Recoge el POST y edita el hospital
+router.post('/edit/:id', upload('hospital'), hospitalController.edit);
+
 // Eliminado lógico de un hospital
 router.get('/delete/:id', hospitalController.delete);
 
