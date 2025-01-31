@@ -1,0 +1,74 @@
+.hero {
+  height: calc(100vh - 76px);
+  background-image: linear-gradient(
+      to right,
+      rgba(0, 0, 0, 0.7),
+      rgba(0, 0, 0, 0.7)
+    ),
+    url('/images/assets/bg_hero.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  img {
+    width: 30%;
+    height: auto;
+  }
+
+  h1,
+  p {
+    color: var(--white);
+  }
+
+  h1 {
+    font-size: 3rem;
+  }
+
+  p {
+    font-size: 1.2rem;
+  }
+
+  .row,
+  .container-xxl {
+    height: 100%;
+  }
+}
+
+.hospitals {
+  .card {
+    transition: all 0.5s ease;
+
+    &:hover {
+      transform: scale(1.02);
+      box-shadow: 0 0 10px var(--primary-color);
+    }
+  }
+}
+
+.doctors {
+  background-color: var(--primary-color);
+}
+
+.how-works {
+  .icon-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    padding: 5rem;
+    background-color: var(--primary-color);
+  }
+
+  p {
+    font-size: 1.2rem;
+  }
+}

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include modules/head.ejs %>
+    <link rel="stylesheet" href="/stylesheets/hospital.css" />
+  </head>
+  <body>
+    <%- include modules/navbar.ejs %>
+
+    <main class="hospital-main">
+      <div class="container-xxl">
+        <section
+          class="row align-items-center justify-content-center flex-lg-row"
+        >
+          <img
+            src="/images/<%= hospital.image ? '/hospital/' + hospital.image : '/assets/null_image.png' %>"
+            alt="hospital"
+            class="col-12 col-md-6"
+          />
+          <div class="col-12 col-md-6">
+            <h1><%= hospital.name %></h1>
+            <p><%= hospital.description %></p>
+            <p><%= hospital.address %></p>
+            <p><%= hospital.city %></p>
+            <p><%= hospital.email %></p>
+            <p><%= hospital.phone_number %></p>
+            <a href="" class="btn btn-primary">Editar</a>
+            <a href="/hospital/delete/<%= hospital.id %>" class="btn btn-danger"
+              >Eliminar</a
+            >
+          </div>
+        </section>
+
+        <section>
+          <h2 class="mb-5">Doctores</h2>
+          <div class="container-xxl">
+            <div class="row justify-content-center align-items-center gap-5">
+              <% if (doctors.length == 0) { %>
+              <p>No hay doctores registrados</p>
+              <% }else{ %> <% doctors.forEach((doctor) => { %>
+              <div class="col-12 col-md-4 col-lg-3 card mb-3 mr-3">
+                <div class="card-body">
+                  <h5 class="card-title">
+                    <%= doctor.name %> <%= doctor.last_name %>
+                  </h5>
+                  <h6 class="card-subtitle text-muted">
+                    <%= doctor.speciality %>
+                  </h6>
+                </div>
+                <img
+                  src="/images/<%= doctor.image ? '/doctor/' + doctor.image : '/assets/null_image.png' %>"
+                  class="card-img-top"
+                  alt="..."
+                />
+                <div class="card-body">
+                  <p class="card-text"><%= doctor.degree %></p>
+                  <p class="card-text"><%= doctor.description %></p>
+                </div>
+                <div class="card-body">
+                  <a
+                    href="/doctor/show/<%= doctor.id %>"
+                    class="btn btn-primary"
+                    >Editar</a
+                  >
+                  <a
+                    href="/doctor/delete/<%= doctor.id %>"
+                    class="btn btn-danger"
+                    >Eliminar</a
+                  >
+                </div>
+              </div>
+              <% })} %>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <%- include modules/footer.ejs %>
+  </body>
+</html>

@@ -1,0 +1,21 @@
+.form-register {
+  width: 100%;
+  max-width: 600px;
+  margin: auto;
+  border: 1px solid var(--primary-color-light);
+  box-shadow: 0 0 40px 0 var(--primary-color);
+  border-radius: 20px;
+  padding: 20px;
+}
+
+.hospital-main {
+  min-height: calc(100vh - 76px);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  .row,
+  .container-xxl {
+    height: 100%;
+  }
+}
