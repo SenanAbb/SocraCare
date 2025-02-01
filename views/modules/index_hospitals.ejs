@@ -1,0 +1,38 @@
+<section class="hospitals py-5 bg-light" id="hospitals">
+  <div class="container-xxl">
+    <h2 class="mb-5 text-center">Algunos de nuestros hospitales</h2>
+    <div class="row justify-content-center">
+      <% hospitals.forEach((hospital) => { %>
+      <div class="col-12 col-md-4 col-lg-4">
+        <div class="card shadow-sm border-0 rounded-3 mb-4">
+          <div class="card-header p-0 position-relative">
+            <img
+              src="/images/<%= hospital.image ? '/hospital/' + hospital.image : '/assets/null_image.png' %>"
+              class="card-img-top rounded-top"
+              alt="Hospital Image"
+            />
+          </div>
+          <div class="card-body">
+            <h5 class="card-title text-primary"><%= hospital.name %></h5>
+            <h6 class="card-subtitle mb-3 text-muted">
+              <%= hospital.address %>, <%= hospital.city %>
+            </h6>
+            <p class="card-text text-muted mb-3"><%= hospital.description %></p>
+            <ul class="list-unstyled">
+              <li><strong>Email:</strong> <%= hospital.email %></li>
+              <li><strong>Teléfono:</strong> <%= hospital.phone_number %></li>
+            </ul>
+          </div>
+          <div class="card-footer text-center">
+            <a
+              href="/hospital/show/<%= hospital.hospital_id %>"
+              class="btn btn-outline-primary"
+              >Ver más</a
+            >
+          </div>
+        </div>
+      </div>
+      <% }) %>
+    </div>
+  </div>
+</section>

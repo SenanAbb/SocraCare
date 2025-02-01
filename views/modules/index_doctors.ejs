@@ -1,0 +1,41 @@
+<section class="doctors py-5">
+  <h2 class="pb-5 text-primary">Algunos de nuestros doctores</h2>
+  <div class="container-xxl">
+    <!-- Eslogan -->
+    <div class="search-slogan mb-4 text-center">
+      <h4>Tu salud, tu elección: encuentra al médico ideal</h4>
+    </div>
+
+    <!-- Formulario de búsqueda -->
+    <%- include ../components/doctor_search.ejs %>
+
+    <!-- Doctores -->
+    <div class="row justify-content-center">
+      <% doctors.forEach((doctor) => { %>
+      <div class="col-12 col-md-4 col-lg-4">
+        <div class="card shadow-lg">
+          <div class="card-header p-0 position-relative">
+            <img
+              src="/images/<%= doctor.image ? '/doctor/' + doctor.image : '/assets/null_image.png' %>"
+              class="card-img-top rounded-top"
+              alt="Doctor Image"
+            />
+          </div>
+          <div class="card-body">
+            <h5 class="card-title text-primary">
+              <%= doctor.name %> <%= doctor.last_name %>
+            </h5>
+            <h6 class="card-subtitle mb-3 text-muted">
+              <%= doctor.speciality %>
+            </h6>
+            <p class="card-text text-muted mb-3"><%= doctor.description %></p>
+            <ul class="list-unstyled">
+              <li><strong>Grado:</strong> <%= doctor.degree %></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <% }) %>
+    </div>
+  </div>
+</section>

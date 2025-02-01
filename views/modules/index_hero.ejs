@@ -1,0 +1,34 @@
+<section class="hero">
+  <div class="container-xxl">
+    <div class="row align-items-center justify-content-evenly">
+      <div class="col-12 col-md-6 d-flex flex-column order-2 order-md-1">
+        <h1 class="text-center text-md-start">
+          Encuentra hospitales y médicos cerca de ti
+        </h1>
+        <p class="text-center text-md-start">
+          Encuentra hospitales y médicos de confianza en segundos
+        </p>
+        <form action="/hospital/search" method="GET" class="search-form mt-4">
+          <input
+            type="text"
+            name="name"
+            class="form-control"
+            placeholder="Buscar hospitales..."
+          />
+          <button type="submit" class="btn btn-primary">Buscar</button>
+        </form>
+        <div class="d-flex flex-column flex-md-row gap-3 mt-4">
+          <a href="/hospital/new" class="btn btn-primary"
+            >Registra tu hospital</a
+          >
+          <a href="#hospitals" class="btn btn-secondary">Descubre más</a>
+        </div>
+      </div>
+      <img
+        src="/images/assets/logo_full.png"
+        alt="hero"
+        class="col-12 col-md-6 img-fluid order-1 order-md-2"
+      />
+    </div>
+  </div>
+</section>

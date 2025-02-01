@@ -1,0 +1,49 @@
+<div class="search-form mb-5">
+  <form action="/doctor/search" method="GET">
+    <div class="row">
+      <div class="col-12 col-md-3 mb-3">
+        <label for="name" class="form-label text-light">Nombre</label>
+        <input
+          type="text"
+          id="name"
+          name="name"
+          class="form-control"
+          placeholder="Juan"
+        />
+      </div>
+      <div class="col-12 col-md-3 mb-3">
+        <label for="lastName" class="form-label text-light">Apellido</label>
+        <input
+          type="text"
+          id="lastname"
+          name="lastname"
+          class="form-control"
+          placeholder="Perez Garcia"
+        />
+      </div>
+      <div class="col-12 col-md-3 mb-3">
+        <label for="degree" class="form-label text-light">Licenciatura</label>
+        <input
+          type="text"
+          id="degree"
+          name="degree"
+          class="form-control"
+          placeholder="Pediatra"
+        />
+      </div>
+      <div class="col-12 col-md-3 mb-3">
+        <label for="speciality" class="form-label text-light"
+          >Especialidad</label
+        >
+        <input
+          type="text"
+          id="speciality"
+          name="speciality"
+          class="form-control"
+          placeholder="Pediatria"
+        />
+      </div>
+    </div>
+    <button type="submit" class="btn btn-light">Buscar</button>
+  </form>
+</div>

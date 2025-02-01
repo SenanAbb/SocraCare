@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <%- include('modules/head.ejs') %>
+    <link rel="stylesheet" href="/stylesheets/doctor.css" />
+  </head>
+  <body class="d-flex flex-column min-vh-100">
+    <%- include('modules/navbar.ejs') %>
+
+    <main class="container my-5 flex-grow-1">
+      <h1 class="text-center mb-4">Resultados de la búsqueda</h1>
+
+      <%- include('components/doctor_search.ejs') %> <% if (doctors.length > 0)
+      { %>
+      <div class="row">
+        <% doctors.forEach(doctor => { %>
+        <div class="col-12 col-md-4 col-lg-4 mb-4">
+          <div class="card shadow-lg">
+            <div class="card-header p-0 position-relative">
+              <img
+                src="/images/<%= doctor.image ? '/doctor/' + doctor.image : '/assets/null_image.png' %>"
+                class="card-img-top rounded-top"
+                alt="Doctor Image"
+              />
+            </div>
+            <div class="card-body">
+              <h5 class="card-title text-primary">
+                <%= doctor.name %> <%= doctor.last_name %>
+              </h5>
+              <h6 class="card-subtitle mb-3 text-muted">
+                <%= doctor.speciality %>
+              </h6>
+              <p class="card-text text-muted mb-3"><%= doctor.description %></p>
+              <ul class="list-unstyled">
+                <li><strong>Grado:</strong> <%= doctor.degree %></li>
+              </ul>
+              <a
+                href="/hospital/show/<%= doctor.hospital_id %>"
+                class="btn btn-primary"
+              >
+                Consultar hospital
+              </a>
+            </div>
+          </div>
+        </div>
+        <% }) %>
+      </div>
+      <% } else { %>
+      <p class="text-center text-muted">
+        No se encontraron hospitales. Por favor, intenta nuevamente.
+      </p>
+      <% } %>
+    </main>
+
+    <%- include('modules/footer.ejs') %>
+  </body>
+</html>

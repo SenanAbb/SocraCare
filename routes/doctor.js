@@ -19,4 +19,7 @@ router.post('/edit/:id', doctorController.edit);
 // Eliminado lógico de un doctor
 router.get('/delete/:id', doctorController.delete);
 
+// Buscar un doctor
+router.get('/search', doctorController.search);
+
 module.exports = router;

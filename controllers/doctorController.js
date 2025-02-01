@@ -130,6 +130,39 @@ class doctorController {
       }
     });
   };
+
+  search = (req, res) => {
+    const { name, lastname, degree, speciality } = req.query;
+
+    let sql = `SELECT doctor.*, speciality.name AS speciality FROM doctor JOIN speciality ON doctor.speciality_id = speciality.speciality_id`;
+
+    let conditions = [];
+
+    if (name) {
+      conditions.push(`doctor.name LIKE '%${name}%'`);
+    }
+    if (lastname) {
+      conditions.push(`doctor.last_name LIKE '%${lastname}%'`);
+    }
+    if (degree) {
+      conditions.push(`doctor.degree LIKE '%${degree}%'`);
+    }
+    if (speciality) {
+      conditions.push(`speciality.name LIKE '%${speciality}%'`);
+    }
+
+    if (conditions.length > 0) {
+      sql += ' WHERE ' + conditions.join(' AND ');
+    }
+
+    connection.query(sql, (err, result) => {
+      if (err) {
+        throw err;
+      } else {
+        res.render('doctorSearch', { doctors: result });
+      }
+    });
+  };
 }
 
 module.exports = new doctorController();

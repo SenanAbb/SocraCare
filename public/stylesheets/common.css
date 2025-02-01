@@ -1,6 +1,6 @@
 :root {
-  --primary-color: #78c2ad;
-  --primary-color-light: #e8f8f5;
+  --primary-color: #3459e6;
+  --primary-color-light: #465be0;
   --white: #fffefa;
   --gray-dark: #2b2f3a;
 }
@@ -11,18 +11,15 @@
   box-sizing: border-box;
 }
 
-section:not(.hero) {
-  padding: 3rem 1rem;
-}
-
 h2 {
   text-align: center;
   margin-bottom: 2rem;
 }
 
 footer {
-  background-color: var(--gray-dark);
-  color: var(--white)
+  ul {
+    margin: 0;
+  }
 }
 
 .card-img-top {

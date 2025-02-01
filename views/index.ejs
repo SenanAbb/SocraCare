@@ -8,127 +8,31 @@
     <%- include modules/navbar.ejs %>
 
     <main>
-      <section class="hero">
-        <div class="container-xxl">
-          <div class="row align-items-center justify-content-center">
-            <div class="col-12 col-md-6">
-              <h1>¡Bienvenido!</h1>
-              <p>Gestiona tu hospital de forma eficiente</p>
-              <div>
-                <a href="/hospital/new" class="btn btn-secondary"
-                  >Registra tu hospital</a
-                >
-              </div>
-            </div>
-            <img
-              src="/images/assets/logo_full.png"
-              alt="hero"
-              class="col-12 col-md-6"
-            />
-          </div>
-        </div>
-      </section>
+      <!-- HERO -->
+      <%- include modules/index_hero.ejs %>
+      <!-- END HERO -->
 
-      <section class="hospitals">
-        <div class="container-xxl">
-          <h2 class="mb-5">Nuestros hospitales</h2>
-          <div class="row justify-content-center gap-5">
-            <% hospitals.forEach((hospital) => { %>
-            <div class="col-12 col-md-4 col-lg-3 card mb-3 mr-3">
-              <div class="card-body">
-                <h5 class="card-title"><%= hospital.name %></h5>
-                <h6 class="card-subtitle text-muted">
-                  <%= hospital.address %>, <%= hospital.city %>
-                </h6>
-              </div>
-              <div class="hospital-image">
-                <img
-                  src="/images/<%= hospital.image ? '/hospital/' + hospital.image : '/assets/null_image.png' %>"
-                  class="card-img-top"
-                  alt="..."
-                />
-              </div>
-              <div class="card-body">
-                <p class="card-text"><%= hospital.description %></p>
-              </div>
-              <ul class="list-group list-group-flush">
-                <li class="list-group-item"><%= hospital.email %></li>
-                <li class="list-group-item"><%= hospital.phone_number %></li>
-              </ul>
-              <div class="card-body">
-                <a
-                  href="/hospital/show/<%= hospital.hospital_id %>"
-                  class="btn btn-primary"
-                  >Ver más</a
-                >
-              </div>
-            </div>
-            <% }) %>
-          </div>
-        </div>
-      </section>
+      <!-- HOSPITALS -->
+      <%- include modules/index_hospitals.ejs %> %>
+      <!-- END HOSPITALS -->
 
-      <section class="doctors">
-        <h2 class="mb-5">Algunos de nuestros doctores</h2>
-        <div class="container-xxl">
-          <div class="row justify-content-center gap-5">
-            <% doctors.forEach((doctor) => { %>
-            <div class="col-12 col-md-4 col-lg-3 card mb-3 mr-3">
-              <div class="card-body">
-                <h5 class="card-title"><%= doctor.name %></h5>
-                <h6 class="card-subtitle text-muted">
-                  <%= doctor.speciality %>
-                </h6>
-              </div>
-              <img
-                src="/images/<%= doctor.image ? '/doctor/' + doctor.image : '/assets/null_image.png' %>"
-                class="card-img-top"
-                alt="..."
-              />
-              <div class="card-body">
-                <p class="card-text"><%= doctor.description %></p>
-              </div>
-              <ul class="list-group list-group-flush">
-                <li class="list-group-item"><%= doctor.degree %></li>
-                <li class="list-group-item"><%= doctor.phone_number %></li>
-              </ul>
-            </div>
-            <% }) %>
-          </div>
-        </div>
-      </section>
+      <!-- STATISTICS -->
+      <%- include modules/index_statistics.ejs %>
+      <!-- END STATISTICS -->
 
-      <section class="how-works">
-        <h2 class="mb-5">Cómo funciona</h2>
+      <!-- DOCTORS -->
+      <%- include modules/index_doctors.ejs %>
+      <!-- END DOCTORS -->
 
-        <div class="container-xxl">
-          <div class="row justify-content-center align-items-center">
-            <div class="icon-group col-12 col-md-4">
-              <div class="icon mb-4">
-                <img src="/images/assets/edit_icon.png" alt="edit" />
-              </div>
-              <p>Registra tu hospital</p>
-            </div>
-            <div class="icon-group col-12 col-md-4">
-              <div class="icon mb-4">
-                <img
-                  src="/images/assets/person_add_icon.png"
-                  alt="person add"
-                />
-              </div>
-              <p>Añade médicos a tu equipo</p>
-            </div>
-            <div class="icon-group col-12 col-md-4">
-              <div class="icon mb-4">
-                <img src="/images/assets/check_icon.png" alt="check" />
-              </div>
-              <p>Visualiza y gestiona a tus médicos</p>
-            </div>
-          </div>
-        </div>
-      </section>
+      <!-- HOW WORKS -->
+      <%- include modules/index_how_works.ejs %>
+      <!-- END HOW WORKS -->
     </main>
 
+    <!-- FOOTER -->
     <%- include modules/footer.ejs %>
+    <!-- END FOOTER -->
+
+    <script src="javascripts/index.js"></script>
   </body>
 </html>

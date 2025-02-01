@@ -22,4 +22,7 @@ router.post('/edit/:id', upload('hospital'), hospitalController.edit);
 // Eliminado lógico de un hospital
 router.get('/delete/:id', hospitalController.delete);
 
+// Buscar un hospital (inicialmente por nombre)
+router.get('/search', hospitalController.search);
+
 module.exports = router;

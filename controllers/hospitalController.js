@@ -203,6 +203,40 @@ class HospitalController {
       }
     });
   };
+
+  search = (req, res) => {
+    const { name, city, address, phone_number } = req.query;
+
+    let sql = `SELECT * FROM active_hospitals`;
+    let conditions = [];
+
+    if (name) {
+      conditions.push(`name LIKE '%${name}%'`);
+    }
+    if (city) {
+      conditions.push(`city LIKE '%${city}%'`);
+    }
+    if (address) {
+      conditions.push(`address LIKE '%${address}%'`);
+    }
+    if (phone_number) {
+      conditions.push(`phone_number LIKE '%${phone_number}%'`);
+    }
+
+    // Agregar la cláusula WHERE solo si hay condiciones
+    if (conditions.length > 0) {
+      sql += ` WHERE ` + conditions.join(' AND ');
+    }
+
+    connection.query(sql, (err, result) => {
+      if (err) {
+        console.log(err);
+        throw err;
+      } else {
+        res.render('hospitalSearch', { hospitals: result });
+      }
+    });
+  };
 }
 
 module.exports = new HospitalController();

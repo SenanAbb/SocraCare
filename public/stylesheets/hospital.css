@@ -19,3 +19,33 @@
     height: 100%;
   }
 }
+
+.search-form {
+  display: flex;
+  align-items: center;
+  margin-bottom: 2rem;
+
+  input {
+    &:nth-child(1) {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+
+    &:nth-child(2) {
+      border-radius: 0;
+    }
+
+    &:nth-child(3) {
+      border-radius: 0;
+    }
+
+    &:nth-child(4) {
+      border-radius: 0;
+    }
+
+    button {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+  }
+}

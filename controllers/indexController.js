@@ -16,6 +16,7 @@ class IndexController {
             console.log(err);
             throw err;
           } else {
+            result = getRandomItems(result, 3);
             result2 = getRandomItems(result2, 3);
             res.render('index', { hospitals: result, doctors: result2 });
           }
