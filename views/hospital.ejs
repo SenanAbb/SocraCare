@@ -32,6 +32,7 @@
             <p class="hospital-phone">
               <strong>Teléfono:</strong> <%= hospital.phone_number %>
             </p>
+            <% if (hospitalId === hospital.hospital_id) { %>
             <div class="hospital-actions">
               <a
                 href="/doctor/new/<%= hospital.hospital_id %>"
@@ -49,6 +50,7 @@
                 >Eliminar</a
               >
             </div>
+            <% } %>
           </div>
         </section>
 
@@ -75,6 +77,7 @@
                   <p class="card-text"><%= doctor.degree %></p>
                   <p class="card-text"><%= doctor.description %></p>
                 </div>
+                <% if (hospitalId === hospital.hospital_id) { %>
                 <div class="card-footer">
                   <a
                     href="/doctor/edit/<%= doctor.doctor_id %>?h=<%= hospital.hospital_id %>"
@@ -87,6 +90,7 @@
                     >Eliminar</a
                   >
                 </div>
+                <% } %>
               </div>
             </div>
             <% }) } %>

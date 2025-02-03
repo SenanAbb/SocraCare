@@ -10,11 +10,15 @@ class doctorController {
         throw err;
       } else {
         const isLoggedIn = req.session.hospital ? true : false;
+        const hospitalId = req.session.hospital
+          ? req.session.hospital.id
+          : null;
 
         res.render('newDoctor', {
           specialities: result,
           hospital_id,
           isLoggedIn,
+          hospitalId,
         });
       }
     });
@@ -24,6 +28,7 @@ class doctorController {
     const { hospital_id } = req.params;
     const { name, lastname, degree, speciality, description } = req.body;
     const isLoggedIn = req.session.hospital ? true : false;
+    const hospitalId = req.session.hospital ? req.session.hospital.id : null;
 
     if (!name || !lastname || !degree || !speciality) {
       connection.query('SELECT * FROM speciality', (err, result) => {
@@ -35,6 +40,7 @@ class doctorController {
             specialities: result,
             message: 'Todos los campos son obligatorios',
             isLoggedIn,
+            hospitalId,
           });
         }
       });
@@ -74,11 +80,15 @@ class doctorController {
             throw err;
           } else {
             const isLoggedIn = req.session.hospital ? true : false;
+            const hospitalId = req.session.hospital
+              ? req.session.hospital.id
+              : null;
             res.render('editDoctor', {
               doctor: result[0],
               specialities: result2,
               hospital_id: h,
               isLoggedIn,
+              hospitalId,
             });
           }
         });
@@ -90,8 +100,12 @@ class doctorController {
     const { id } = req.params;
     const { name, lastname, degree, speciality, description } = req.body;
     const hospital_id = req.query.h;
+    console.log(hospital_id);
+    const isLoggedIn = req.session.hospital ? true : false;
+    const hospitalId = req.session.hospital ? req.session.hospital.id : null;
 
     if (!name || !lastname || !degree || !speciality) {
+      console.log(req.body);
       connection.query('SELECT * FROM speciality', (err, result) => {
         if (err) {
           throw err;
@@ -108,6 +122,8 @@ class doctorController {
               description,
             },
             hospital_id,
+            isLoggedIn,
+            hospitalId,
           });
         }
       });
@@ -175,10 +191,14 @@ class doctorController {
             throw err;
           } else {
             const isLoggedIn = req.session.hospital ? true : false;
+            const hospitalId = req.session.hospital
+              ? req.session.hospital.id
+              : null;
             res.render('doctorSearch', {
               doctors: result2,
               specialities: result,
               isLoggedIn,
+              hospitalId,
             });
           }
         });

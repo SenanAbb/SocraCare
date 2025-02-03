@@ -3,10 +3,10 @@
   <head>
     <%- include modules/head.ejs %>
   </head>
-  <body>
+  <body class="d-flex flex-column min-vh-100">
     <%- include modules/navbar.ejs %>
 
-    <main class="login-main flex-grow-1">
+    <main class="flex-grow-1 d-flex flex-column">
       <div
         class="container d-flex justify-content-center align-items-center py-5"
       >
@@ -15,8 +15,9 @@
           <span
             style="color: red; text-align: center; font-size: 1rem"
             class="mb-4"
-            ><%= typeof message !== "undefined" ? message : "" %></span
           >
+            <%= typeof message !== "undefined" ? message : "" %>
+          </span>
           <form action="/login" method="POST">
             <div class="mb-3">
               <label for="email" class="form-label">Correo electrónico</label>

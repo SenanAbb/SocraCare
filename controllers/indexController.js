@@ -26,11 +26,16 @@ class IndexController {
                 result = getRandomItems(result, 3);
                 result2 = getRandomItems(result2, 3);
                 const isLoggedIn = req.session.hospital ? true : false;
+                const hospitalId = req.session.hospital
+                  ? req.session.hospital.id
+                  : null;
+                console.log(req.session);
                 res.render('index', {
                   hospitals: result,
                   doctors: result2,
                   specialities: result3,
                   isLoggedIn,
+                  hospitalId,
                 });
               }
             });
@@ -42,7 +47,8 @@ class IndexController {
 
   openLogin = (req, res) => {
     const isLoggedIn = req.session.hospital ? true : false;
-    res.render('login', { isLoggedIn });
+    const hospitalId = req.session.hospital ? req.session.hospital.id : null;
+    res.render('login', { isLoggedIn, hospitalId });
   };
 
   login = (req, res) => {
@@ -59,17 +65,20 @@ class IndexController {
             console.log(err);
             throw err;
           } else {
-            if (result.length > 0) {
+            console.log(result);
+            if (result.length > 0 && result[0].is_deleted === 0) {
               const validPassword = bcrypt.compareSync(
                 password,
                 result[0].password
               );
               if (validPassword) {
                 req.session.hospital = {
-                  id: result[0].id,
+                  id: result[0].hospital_id,
                 };
 
-                res.redirect('/');
+                req.session.save(() => {
+                  res.redirect('/');
+                });
               } else {
                 res.render('login', {
                   message: 'Credenciales incorrectas',

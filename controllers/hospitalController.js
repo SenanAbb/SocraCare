@@ -4,8 +4,9 @@ const bcrypt = require('bcrypt');
 class HospitalController {
   newForm = (req, res) => {
     const isLoggedIn = req.session.hospital ? true : false;
+    const hospitalId = req.session.hospital ? req.session.hospital.id : null;
 
-    res.render('newHospital', { isLoggedIn });
+    res.render('newHospital', { isLoggedIn, hospitalId });
   };
 
   create = (req, res) => {
@@ -21,6 +22,7 @@ class HospitalController {
     } = req.body;
 
     const isLoggedIn = req.session.hospital ? true : false;
+    const hospitalId = req.session.hospital ? req.session.hospital.id : null;
 
     // Validaciones
     // Contraseñas no coinciden
@@ -28,6 +30,7 @@ class HospitalController {
       res.render('newHospital', {
         message: 'Las contraseñas no coinciden',
         isLoggedIn,
+        hospitalId,
       });
       // Algun campo esta vacio
     } else if (
@@ -42,6 +45,7 @@ class HospitalController {
       res.render('newHospital', {
         message: 'Algún campo está vacío',
         isLoggedIn,
+        hospitalId,
       });
     } else {
       bcrypt.hash(password, 10, (errHash, hash) => {
@@ -63,6 +67,7 @@ class HospitalController {
                 res.render('newHospital', {
                   message: 'El email ya existe en el sistema',
                   isLoggedIn,
+                  hospitalId,
                 });
               } else {
                 throw err;
@@ -82,19 +87,27 @@ class HospitalController {
     let hospitalSql = `SELECT * FROM active_hospitals WHERE hospital_id=${id}`;
     let doctorsSql = `SELECT * FROM active_doctors WHERE hospital_id=${id}`;
 
+    console.log(hospitalSql);
+
     connection.query(hospitalSql, (err, result) => {
       if (err) {
         console.log(err);
+        throw err;
       } else {
         connection.query(doctorsSql, (err, result2) => {
           if (err) {
             console.log(err);
           } else {
             const isLoggedIn = req.session.hospital ? true : false;
+            const hospitalId = req.session.hospital
+              ? req.session.hospital.id
+              : null;
+            console.log('************************', result2);
             res.render('hospital', {
               hospital: result[0],
               doctors: result2,
               isLoggedIn,
+              hospitalId,
             });
           }
         });
@@ -112,7 +125,14 @@ class HospitalController {
         console.log(err);
       } else {
         const isLoggedIn = req.session.hospital ? true : false;
-        res.render('editHospital', { hospital: result[0], isLoggedIn });
+        const hospitalId = req.session.hospital
+          ? req.session.hospital.id
+          : null;
+        res.render('editHospital', {
+          hospital: result[0],
+          isLoggedIn,
+          hospitalId,
+        });
       }
     });
   };
@@ -130,8 +150,6 @@ class HospitalController {
       description,
     } = req.body;
 
-    const isLoggedIn = req.session.hospital ? true : false;
-
     // Obtener los datos actuales del hospital para mostrarlos en la vista en caso de error
     const hospitalQuery = `SELECT * FROM hospital WHERE hospital_id=${id}`;
     connection.query(hospitalQuery, (err, results) => {
@@ -139,6 +157,10 @@ class HospitalController {
         console.log(err);
         res.redirect('/hospital'); // Redirigir a la lista si hay un error al obtener los datos
       } else {
+        const isLoggedIn = req.session.hospital ? true : false;
+        const hospitalId = req.session.hospital
+          ? req.session.hospital.id
+          : null;
         const hospital = results[0]; // Obtenemos el hospital actual
 
         let message = null;
@@ -150,7 +172,12 @@ class HospitalController {
         }
 
         if (message) {
-          res.render('editHospital', { message, hospital, isLoggedIn });
+          res.render('editHospital', {
+            message,
+            hospital,
+            isLoggedIn,
+            hospitalId,
+          });
         } else {
           // Construcción de la consulta SQL
           let sql = `UPDATE hospital SET name='${name}', email='${email}', address='${address}', city='${city}', phone_number='${phone_number}', description='${description}'`;
@@ -167,7 +194,10 @@ class HospitalController {
 
                 connection.query(sql, (err) => {
                   if (!err) {
-                    res.redirect(`/hospital/show/${id}`, { isLoggedIn });
+                    res.redirect(`/hospital/show/${id}`, {
+                      isLoggedIn,
+                      hospitalId,
+                    });
                   } else {
                     console.log(err);
                     throw err;
@@ -177,6 +207,8 @@ class HospitalController {
                 res.render('editHospital', {
                   message: 'Error al procesar la contraseña',
                   hospital,
+                  isLoggedIn,
+                  hospitalId,
                 });
               }
             });
@@ -184,10 +216,11 @@ class HospitalController {
             sql += ` WHERE hospital_id=${id}`;
 
             connection.query(sql, (err) => {
-              if (!err) {
-                res.redirect(`/hospital/show/${id}`, { isLoggedIn });
-              } else {
+              if (err) {
                 console.log(err);
+                throw err;
+              } else {
+                res.redirect(`/hospital/show/${id}`);
               }
             });
           }
@@ -211,7 +244,7 @@ class HospitalController {
           if (err) {
             console.log(err);
           } else {
-            res.redirect('/');
+            res.redirect('/logout');
           }
         });
       }
@@ -248,7 +281,14 @@ class HospitalController {
         throw err;
       } else {
         const isLoggedIn = req.session.hospital ? true : false;
-        res.render('hospitalSearch', { hospitals: result, isLoggedIn });
+        const hospitalId = req.session.hospital
+          ? req.session.hospital.id
+          : null;
+        res.render('hospitalSearch', {
+          hospitals: result,
+          isLoggedIn,
+          hospitalId,
+        });
       }
     });
   };
