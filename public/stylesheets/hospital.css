@@ -1,29 +1,146 @@
 .form-register {
-  width: 100%;
-  max-width: 600px;
-  margin: auto;
-  border: 1px solid var(--primary-color-light);
-  box-shadow: 0 0 40px 0 var(--primary-color);
-  border-radius: 20px;
-  padding: 20px;
+  background: #fff;
+  padding: 1.3rem;
+  border-radius: 0.6rem;
+  box-shadow: 0 0.6rem 1.3rem rgba(0, 0, 0, 0.1);
+
+  legend {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1.3rem;
+    color: var(--primary-color);
+  }
+
+  .form-label {
+    font-weight: 600;
+    color: #666;
+    margin-bottom: 0.3rem;
+  }
+
+  .form-control {
+    border-radius: 0.5rem;
+    padding: 0.6rem;
+    margin-bottom: 1.3rem;
+    background-color: #f9f9f9;
+    border: 0.1rem solid #ddd;
+    transition: border-color 0.3s ease;
+  }
+
+  .form-control:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0.3rem rgba(74, 144, 226, 0.5);
+  }
+
+  button {
+    width: 100%;
+  }
+
+  p {
+    color: red;
+    font-size: 0.9rem;
+  }
 }
 
 .hospital-main {
-  min-height: calc(100vh - 76px);
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+  min-height: calc(100vh - 4.8rem);
+  padding: 2rem 0;
 
   .row,
   .container-xxl {
     height: 100%;
+  }
+
+  .hospital-info {
+    margin-bottom: 3rem;
+
+    .hospital-img {
+      max-width: 100%;
+      object-fit: cover;
+      border-radius: 0.5rem;
+    }
+
+    .hospital-details {
+      margin-top: 2rem;
+
+      .hospital-name {
+        font-size: 2rem;
+        font-weight: 700;
+        color: var(--primary-color);
+      }
+
+      .hospital-description {
+        font-size: 1.2rem;
+        color: #666;
+      }
+
+      .hospital-address,
+      .hospital-city,
+      .hospital-email,
+      .hospital-phone {
+        font-size: 1rem;
+        color: #333;
+        margin-top: 0.5rem;
+      }
+
+      .hospital-actions {
+        margin-top: 2rem;
+      }
+    }
+  }
+
+  .doctor-list {
+    .section-title {
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: var(--primary-color);
+    }
+
+    .doctor-card {
+      .card {
+        border-radius: 0.5rem;
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+
+        .card-img-top {
+          max-height: 200px;
+          object-fit: cover;
+        }
+
+        .card-body {
+          padding: 1rem;
+
+          .card-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+          }
+
+          .card-subtitle {
+            font-size: 1rem;
+            color: #777;
+          }
+
+          .card-text {
+            font-size: 1rem;
+            color: #555;
+            margin-top: 0.5rem;
+          }
+        }
+
+        .card-footer {
+          display: flex;
+          justify-content: space-between;
+          padding: 1rem;
+          background-color: #f9f9f9;
+        }
+      }
+    }
   }
 }
 
 .search-form {
   display: flex;
   align-items: center;
-  margin-bottom: 2rem;
+  margin-bottom: 1.3rem;
 
   input {
     &:nth-child(1) {

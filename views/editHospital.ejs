@@ -7,12 +7,12 @@
   <body>
     <%- include modules/navbar.ejs %>
 
-    <main class="hospital-main">
+    <main class="hospital-main bg-primary-subtle py-5">
       <div class="container-xxl">
         <form
           action="/hospital/edit/<%= hospital.hospital_id %>"
           method="post"
-          class="form-register my-5"
+          class="form-register"
           enctype="multipart/form-data"
         >
           <fieldset>
@@ -32,7 +32,7 @@
               />
             </div>
             <div>
-              <label for="email" class="form-label mt-4">Email *</label>
+              <label for="email" class="form-label mt-2">Email *</label>
               <input
                 type="email"
                 class="form-control"
@@ -43,7 +43,7 @@
               />
             </div>
             <div>
-              <label for="password" class="form-label mt-4">Contraseña *</label>
+              <label for="password" class="form-label mt-2">Contraseña *</label>
               <input
                 type="password"
                 class="form-control"
@@ -54,7 +54,7 @@
               />
             </div>
             <div>
-              <label for="repPassword" class="form-label mt-4"
+              <label for="repPassword" class="form-label mt-2"
                 >Repite la contraseña *</label
               >
               <input
@@ -67,7 +67,7 @@
               />
             </div>
             <div>
-              <label for="address" class="form-label mt-4">Dirección *</label>
+              <label for="address" class="form-label mt-2">Dirección *</label>
               <input
                 type="text"
                 class="form-control"
@@ -79,7 +79,7 @@
               />
             </div>
             <div>
-              <label for="city" class="form-label mt-4">Ciudad *</label>
+              <label for="city" class="form-label mt-2">Ciudad *</label>
               <input
                 type="text"
                 class="form-control"
@@ -91,7 +91,7 @@
               />
             </div>
             <div>
-              <label for="phone_number" class="form-label mt-4"
+              <label for="phone_number" class="form-label mt-2"
                 >Teléfono *</label
               >
               <input
@@ -105,7 +105,7 @@
               />
             </div>
             <div>
-              <label for="description" class="form-label mt-4"
+              <label for="description" class="form-label mt-2"
                 >Descripción</label
               >
               <textarea
@@ -118,13 +118,19 @@
               >
             </div>
             <div>
-              <label for="image" class="form-label mt-4"
+              <label for="image" class="form-label mt-2"
                 >Sube la foto del hospital</label
               >
               <input class="form-control" type="file" id="image" name="img" />
             </div>
             <button type="submit" class="btn btn-primary mt-3">Guardar</button>
           </fieldset>
+          <button
+            onclick="window.location.href='/hospital/show/<%= hospital.hospital_id %>'"
+            class="btn btn-danger mt-2"
+          >
+            Cancelar
+          </button>
         </form>
       </div>
     </main>

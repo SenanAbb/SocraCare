@@ -16,14 +16,20 @@
       <div class="collapse navbar-collapse" id="navbarColor01">
         <ul class="navbar-nav me-auto">
           <li class="nav-item">
-            <a class="nav-link active ml-4" href="/">Home </a>
+            <% if (isLoggedIn == true) { %>
+            <a class="nav-link active ml-4" href=""></a>
+            <% } %>
           </li>
         </ul>
         <form class="d-flex gap-3">
+          <% if (isLoggedIn == false) { %>
           <a href="/hospital/new" class="btn btn-outline-primary text-light">
             Regístrarse
           </a>
-          <a class="btn btn-secondary">Login</a>
+          <a href="/login" class="btn btn-secondary">Login</a>
+          <% } else { %>
+          <a href="/logout" class="btn btn-secondary">Logout</a>
+          <% } %>
         </form>
       </div>
     </div>

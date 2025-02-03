@@ -1,5 +1,6 @@
 var createError = require('http-errors');
 var express = require('express');
+var session = require('express-session');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
@@ -9,6 +10,21 @@ var hospitalRouter = require('./routes/hospital');
 var doctorRouter = require('./routes/doctor');
 
 var app = express();
+
+//express-session
+app.use(
+  session({
+    secret: 'socracare', // Cambia esto por una clave segura
+    resave: false, // NO guardar sesión si no ha cambiado
+    saveUninitialized: false, // NO guardar sesiones vacías
+    cookie: {
+      httpOnly: true, // Evita acceso desde JS en el cliente
+      secure: false, // Debe ser true si se usa HTTPS en producción
+      sameSite: 'lax', // Configuración recomendada para evitar problemas de cookies
+      maxAge: 1000 * 60 * 60, // Expiración en 1 hora
+    },
+  })
+);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

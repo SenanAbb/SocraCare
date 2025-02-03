@@ -1,5 +1,6 @@
 const connection = require('../config/db');
 const getRandomItems = require('../utils/getRandomItems');
+const bcrypt = require('bcrypt');
 
 class IndexController {
   openIndex = (req, res) => {
@@ -18,10 +19,82 @@ class IndexController {
           } else {
             result = getRandomItems(result, 3);
             result2 = getRandomItems(result2, 3);
-            res.render('index', { hospitals: result, doctors: result2 });
+            const isLoggedIn = req.session.hospital ? true : false;
+            res.render('index', {
+              hospitals: result,
+              doctors: result2,
+              isLoggedIn,
+            });
           }
         });
       }
+    });
+  };
+
+  openLogin = (req, res) => {
+    const isLoggedIn = req.session.hospital ? true : false;
+    res.render('login', { isLoggedIn });
+  };
+
+  login = (req, res) => {
+    const { email, password } = req.body;
+    const isLoggedIn = req.session.hospital ? true : false;
+
+    if (!email || !password) {
+      res.render('login', { message: 'Todos los campos son obligatorios' });
+    } else {
+      connection.query(
+        `SELECT * FROM hospital WHERE email = '${email}'`,
+        (err, result) => {
+          if (err) {
+            console.log(err);
+            throw err;
+          } else {
+            if (result.length > 0) {
+              const validPassword = bcrypt.compareSync(
+                password,
+                result[0].password
+              );
+              if (validPassword) {
+                req.session.hospital = {
+                  id: result[0].id,
+                };
+
+                res.redirect('/');
+              } else {
+                res.render('login', {
+                  message: 'Credenciales incorrectas',
+                  isLoggedIn,
+                });
+              }
+            } else {
+              res.render('login', {
+                message: 'Credenciales incorrectas',
+                isLoggedIn,
+              });
+            }
+          }
+        }
+      );
+    }
+  };
+
+  logout = (req, res) => {
+    // 1. Destruir la sesión primero
+    req.session.destroy((err) => {
+      if (err) {
+        console.error('Error al destruir la sesión:', err);
+        return res.redirect('/'); // Redirige a la página de inicio si hay error
+      }
+
+      res.clearCookie('connect.sid', {
+        path: '/',
+        httpOnly: true,
+        secure: false, // Cambia a true si usas HTTPS
+        sameSite: 'lax',
+      });
+
+      res.redirect('/');
     });
   };
 }

@@ -2,16 +2,17 @@
 <html lang="en">
   <head>
     <%- include modules/head.ejs %>
+    <link rel="stylesheet" href="/stylesheets/doctor.css" />
   </head>
   <body>
     <%- include modules/navbar.ejs %>
 
-    <main>
+    <main class="bg-primary-subtle py-5">
       <div class="container-xxl">
         <form
           action="/doctor/create/<%= hospital_id %>"
           method="post"
-          class="form-register my-5"
+          class="form-register"
           enctype="multipart/form-data"
         >
           <fieldset>
@@ -19,7 +20,8 @@
             <p style="color: red">
               <%= typeof message != 'undefined' ? message : null %>
             </p>
-            <div>
+
+            <div class="form-group">
               <label for="name" class="form-label">Nombre *</label>
               <input
                 type="text"
@@ -29,8 +31,9 @@
                 placeholder="Introduce el nombre"
               />
             </div>
-            <div>
-              <label for="lastname" class="form-label mt-4">Apellidos *</label>
+
+            <div class="form-group mt-2">
+              <label for="lastname" class="form-label">Apellidos *</label>
               <input
                 type="text"
                 class="form-control"
@@ -39,8 +42,9 @@
                 placeholder="Introduce los apellidos"
               />
             </div>
-            <div>
-              <label for="degree" class="form-label mt-4">Licenciatura *</label>
+
+            <div class="form-group mt-2">
+              <label for="degree" class="form-label">Licenciatura *</label>
               <input
                 type="text"
                 class="form-control"
@@ -51,11 +55,10 @@
               />
             </div>
 
-            <div>
-              <label for="speciality" class="form-label mt-4"
-                >Example select</label
-              >
+            <div class="form-group mt-2">
+              <label for="speciality" class="form-label">Especialidad *</label>
               <select class="form-select" id="speciality" name="speciality">
+                <option value="">Selecciona una especialidad</option>
                 <% specialities.forEach(speciality => { %>
                 <option value="<%= speciality.speciality_id %>">
                   <%= speciality.name %>
@@ -63,10 +66,9 @@
                 <% }); %>
               </select>
             </div>
-            <div>
-              <label for="description" class="form-label mt-4"
-                >Descripción</label
-              >
+
+            <div class="form-group mt-2">
+              <label for="description" class="form-label">Descripción</label>
               <textarea
                 class="form-control"
                 id="description"
@@ -74,14 +76,24 @@
                 rows="3"
               ></textarea>
             </div>
-            <div>
-              <label for="image" class="form-label mt-4"
+
+            <div class="form-group mt-2">
+              <label for="image" class="form-label"
                 >Sube la foto del médico</label
               >
               <input class="form-control" type="file" id="image" name="img" />
             </div>
+
             <button type="submit" class="btn btn-primary mt-3">
               Registrar
+            </button>
+
+            <button
+              type="button"
+              onclick="window.location.href='/hospital/show/<%= hospital_id %>'"
+              class="btn btn-danger mt-2"
+            >
+              Cancelar
             </button>
           </fieldset>
         </form>

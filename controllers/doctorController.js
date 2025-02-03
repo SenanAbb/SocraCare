@@ -9,7 +9,13 @@ class doctorController {
       if (err) {
         throw err;
       } else {
-        res.render('newDoctor', { specialities: result, hospital_id });
+        const isLoggedIn = req.session.hospital ? true : false;
+        
+        res.render('newDoctor', {
+          specialities: result,
+          hospital_id,
+          isLoggedIn,
+        });
       }
     });
   };
@@ -17,6 +23,7 @@ class doctorController {
   create = (req, res) => {
     const { hospital_id } = req.params;
     const { name, lastname, degree, speciality, description } = req.body;
+    const isLoggedIn = req.session.hospital ? true : false;
 
     if (!name || !lastname || !degree || !speciality) {
       connection.query('SELECT * FROM speciality', (err, result) => {
@@ -27,6 +34,7 @@ class doctorController {
             hospital_id,
             specialities: result,
             message: 'Todos los campos son obligatorios',
+            isLoggedIn,
           });
         }
       });
@@ -65,10 +73,12 @@ class doctorController {
           if (err) {
             throw err;
           } else {
+            const isLoggedIn = req.session.hospital ? true : false;
             res.render('editDoctor', {
               doctor: result[0],
               specialities: result2,
               hospital_id: h,
+              isLoggedIn,
             });
           }
         });
@@ -80,8 +90,6 @@ class doctorController {
     const { id } = req.params;
     const { name, lastname, degree, speciality, description } = req.body;
     const hospital_id = req.query.h;
-
-    console.log(req.body);
 
     if (!name || !lastname || !degree || !speciality) {
       connection.query('SELECT * FROM speciality', (err, result) => {
@@ -159,7 +167,8 @@ class doctorController {
       if (err) {
         throw err;
       } else {
-        res.render('doctorSearch', { doctors: result });
+        const isLoggedIn = req.session.hospital ? true : false;
+        res.render('doctorSearch', { doctors: result, isLoggedIn });
       }
     });
   };

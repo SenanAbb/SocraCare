@@ -3,7 +3,9 @@ const bcrypt = require('bcrypt');
 
 class HospitalController {
   newForm = (req, res) => {
-    res.render('newHospital');
+    const isLoggedIn = req.session.hospital ? true : false;
+
+    res.render('newHospital', { isLoggedIn });
   };
 
   create = (req, res) => {
@@ -18,11 +20,14 @@ class HospitalController {
       description,
     } = req.body;
 
+    const isLoggedIn = req.session.hospital ? true : false;
+
     // Validaciones
     // Contraseñas no coinciden
     if (password !== repPassword) {
       res.render('newHospital', {
         message: 'Las contraseñas no coinciden',
+        isLoggedIn,
       });
       // Algun campo esta vacio
     } else if (
@@ -36,6 +41,7 @@ class HospitalController {
     ) {
       res.render('newHospital', {
         message: 'Algún campo está vacío',
+        isLoggedIn,
       });
     } else {
       bcrypt.hash(password, 10, (errHash, hash) => {
@@ -43,11 +49,10 @@ class HospitalController {
           console.log(errHash);
           throw errHash;
         } else {
-          let sql = `INSERT INTO hospital (name, email, password, address, city, phone_number, description) VALUES ('${name}', '${email}', '${hash}', '${address}', '${phone_number}', '${city}', '${description}')`;
+          let sql = `INSERT INTO hospital (name, email, password, address, city, phone_number, description) VALUES ('${name}', '${email}', '${hash}', '${address}', '${city}', '${phone_number}', '${description}')`;
 
           if (req.file != undefined) {
             const { filename } = req.file;
-            console.log(filename);
 
             sql = `INSERT INTO hospital (name, email, password, address, city, phone_number, description, image) VALUES ('${name}', '${email}', '${hash}', '${address}', '${city}', '${phone_number}', '${description}', '${filename}')`;
           }
@@ -57,6 +62,7 @@ class HospitalController {
               if (err.errno == 1062) {
                 res.render('newHospital', {
                   message: 'El email ya existe en el sistema',
+                  isLoggedIn,
                 });
               } else {
                 throw err;
@@ -84,7 +90,12 @@ class HospitalController {
           if (err) {
             console.log(err);
           } else {
-            res.render('hospital', { hospital: result[0], doctors: result2 });
+            const isLoggedIn = req.session.hospital ? true : false;
+            res.render('hospital', {
+              hospital: result[0],
+              doctors: result2,
+              isLoggedIn,
+            });
           }
         });
       }
@@ -100,7 +111,8 @@ class HospitalController {
       if (err) {
         console.log(err);
       } else {
-        res.render('editHospital', { hospital: result[0] });
+        const isLoggedIn = req.session.hospital ? true : false;
+        res.render('editHospital', { hospital: result[0], isLoggedIn });
       }
     });
   };
@@ -117,6 +129,8 @@ class HospitalController {
       phone_number,
       description,
     } = req.body;
+
+    const isLoggedIn = req.session.hospital ? true : false;
 
     // Obtener los datos actuales del hospital para mostrarlos en la vista en caso de error
     const hospitalQuery = `SELECT * FROM hospital WHERE hospital_id=${id}`;
@@ -136,7 +150,7 @@ class HospitalController {
         }
 
         if (message) {
-          res.render('editHospital', { message, hospital });
+          res.render('editHospital', { message, hospital, isLoggedIn });
         } else {
           // Construcción de la consulta SQL
           let sql = `UPDATE hospital SET name='${name}', email='${email}', address='${address}', city='${city}', phone_number='${phone_number}', description='${description}'`;
@@ -153,13 +167,13 @@ class HospitalController {
 
                 connection.query(sql, (err) => {
                   if (!err) {
-                    res.redirect(`/hospital/show/${id}`);
+                    res.redirect(`/hospital/show/${id}`, { isLoggedIn });
                   } else {
                     console.log(err);
+                    throw err;
                   }
                 });
               } else {
-                console.log(errHash);
                 res.render('editHospital', {
                   message: 'Error al procesar la contraseña',
                   hospital,
@@ -171,7 +185,7 @@ class HospitalController {
 
             connection.query(sql, (err) => {
               if (!err) {
-                res.redirect(`/hospital/show/${id}`);
+                res.redirect(`/hospital/show/${id}`, { isLoggedIn });
               } else {
                 console.log(err);
               }
@@ -233,7 +247,8 @@ class HospitalController {
         console.log(err);
         throw err;
       } else {
-        res.render('hospitalSearch', { hospitals: result });
+        const isLoggedIn = req.session.hospital ? true : false;
+        res.render('hospitalSearch', { hospitals: result, isLoggedIn });
       }
     });
   };

@@ -1,8 +1,68 @@
 .search-form {
   form {
     background-color: var(--primary-color);
-    padding: 1.5rem;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 1.3rem;
+    border-radius: 0.6rem;
+    box-shadow: 0 0.4rem 0.6rem rgba(0, 0, 0, 0.1);
+  }
+}
+
+.form-register {
+  background: #fff;
+  padding: 1.3rem;
+  border-radius: 0.6rem;
+  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.1);
+
+  legend {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1.3rem;
+    color: var(--primary-color);
+  }
+
+  .form-label {
+    font-weight: 600;
+    color: #666;
+    margin-bottom: 0.3rem;
+  }
+
+  .form-control {
+    border-radius: 0.5rem;
+    padding: 0.6rem;
+    margin-bottom: 1.3rem;
+    background-color: #f9f9f9;
+    border: 0.1rem solid #ddd;
+
+    &:focus {
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0.3rem rgba(74, 144, 226, 0.5);
+    }
+  }
+
+  .form-select {
+    border-radius: 0.5rem;
+    padding: 0.6rem;
+    margin-bottom: 1.3rem;
+    background-color: #f9f9f9;
+    border: 0.1rem solid #ddd;
+
+    &:focus {
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0.3rem rgba(74, 144, 226, 0.5);
+    }
+  }
+
+  textarea.form-control {
+    resize: vertical;
+  }
+
+  button {
+    width: 100%;
+    cursor: pointer;
+    transition: background-color 0.3s;
+
+    &:hover {
+      background-color: #357ab7;
+    }
   }
 }
