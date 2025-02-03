@@ -35,13 +35,12 @@
         <label for="speciality" class="form-label text-light"
           >Especialidad</label
         >
-        <input
-          type="text"
-          id="speciality"
-          name="speciality"
-          class="form-control"
-          placeholder="Pediatria"
-        />
+        <select class="form-select" id="speciality" name="speciality">
+          <option value="">Selecciona una especialidad</option>
+          <% specialities.forEach(speciality => { %>
+          <option value="<%= speciality.name %>"><%= speciality.name %></option>
+          <% }); %>
+        </select>
       </div>
     </div>
     <button type="submit" class="btn btn-light">Buscar</button>

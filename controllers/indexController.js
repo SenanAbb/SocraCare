@@ -6,6 +6,7 @@ class IndexController {
   openIndex = (req, res) => {
     let hospitalsSql = 'SELECT * FROM active_hospitals';
     let doctorsSql = 'SELECT * FROM active_doctors';
+    let specialitiesSql = 'SELECT * FROM speciality';
 
     connection.query(hospitalsSql, (err, result) => {
       if (err) {
@@ -17,13 +18,21 @@ class IndexController {
             console.log(err);
             throw err;
           } else {
-            result = getRandomItems(result, 3);
-            result2 = getRandomItems(result2, 3);
-            const isLoggedIn = req.session.hospital ? true : false;
-            res.render('index', {
-              hospitals: result,
-              doctors: result2,
-              isLoggedIn,
+            connection.query(specialitiesSql, (err, result3) => {
+              if (err) {
+                console.log(err);
+                throw err;
+              } else {
+                result = getRandomItems(result, 3);
+                result2 = getRandomItems(result2, 3);
+                const isLoggedIn = req.session.hospital ? true : false;
+                res.render('index', {
+                  hospitals: result,
+                  doctors: result2,
+                  specialities: result3,
+                  isLoggedIn,
+                });
+              }
             });
           }
         });

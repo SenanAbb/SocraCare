@@ -10,7 +10,7 @@ class doctorController {
         throw err;
       } else {
         const isLoggedIn = req.session.hospital ? true : false;
-        
+
         res.render('newDoctor', {
           specialities: result,
           hospital_id,
@@ -142,7 +142,10 @@ class doctorController {
   search = (req, res) => {
     const { name, lastname, degree, speciality } = req.query;
 
+    console.log(speciality);
+
     let sql = `SELECT doctor.*, speciality.name AS speciality FROM doctor JOIN speciality ON doctor.speciality_id = speciality.speciality_id`;
+    let specialitiesSql = 'SELECT * FROM speciality';
 
     let conditions = [];
 
@@ -163,12 +166,22 @@ class doctorController {
       sql += ' WHERE ' + conditions.join(' AND ');
     }
 
-    connection.query(sql, (err, result) => {
+    connection.query(specialitiesSql, (err, result) => {
       if (err) {
         throw err;
       } else {
-        const isLoggedIn = req.session.hospital ? true : false;
-        res.render('doctorSearch', { doctors: result, isLoggedIn });
+        connection.query(sql, (err, result2) => {
+          if (err) {
+            throw err;
+          } else {
+            const isLoggedIn = req.session.hospital ? true : false;
+            res.render('doctorSearch', {
+              doctors: result2,
+              specialities: result,
+              isLoggedIn,
+            });
+          }
+        });
       }
     });
   };
