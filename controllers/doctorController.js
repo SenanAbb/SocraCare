@@ -160,7 +160,7 @@ class doctorController {
 
     console.log(speciality);
 
-    let sql = `SELECT doctor.*, speciality.name AS speciality FROM doctor JOIN speciality ON doctor.speciality_id = speciality.speciality_id`;
+    let sql = `SELECT * FROM active_doctors`;
     let specialitiesSql = 'SELECT * FROM speciality';
 
     let conditions = [];
